@@ -85,7 +85,7 @@ app.use('/hello', (req, res) => {
 })
 
 app.put('/edit/status/:id', cors(), async (req, res) => {
-  const {item} = req.body;
+  const {nama, status} = req.body;
   const {id} = req.params;
   // const updateQuery = 'UPDATE test SET status = ?, nama = ? WHERE id = ?';
   // const updateParams = [{status, nama}, req.params.id];
@@ -100,7 +100,7 @@ app.put('/edit/status/:id', cors(), async (req, res) => {
 
   try {
     // Ensure that status and nama are not undefined or null
-    if (item.status === undefined || item.nama === undefined) {
+    if (status === undefined || nama === undefined) {
       throw new Error('Invalid request payload. Make sure "status" and "nama" are provided.');
     }
 
@@ -111,7 +111,7 @@ app.put('/edit/status/:id', cors(), async (req, res) => {
     }
 
     const updateQuery = 'UPDATE test SET nama = ?, status = ? WHERE id = ?';
-    const updateParams = [item.nama, item.status, parsedId];
+    const updateParams = [nama, status, parsedId];
 
     db.query(updateQuery, updateParams, (error, result) => {
       if (error) {
