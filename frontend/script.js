@@ -123,7 +123,10 @@ function editData(item) {
     headers: {
         "Content-Type": "application/json"
     },
-    body: JSON.stringify(item)
+    body: JSON.stringify({
+        status: item.status,
+        nama: item.nama,
+    })
     })
     .then(response => {
         console.log("Raw Response:", response);
