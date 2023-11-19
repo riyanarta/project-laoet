@@ -3,8 +3,21 @@ const cors = require('cors');
 const app = express();
 const db = require('./services/db');
 
-app.use(express.json());
+const allowedOrigins = ['http://localhost', 'http://127.0.0.1:5500', 'http://riyanarta.000webhostapp.com', 'https://project-laut.vercel.app'];
 
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  optionsSuccessStatus: 200,
+};
+
+app.use(express.json());
+app.use(cors(corsOptions));
 app.get('/check/:itemcode', async (req, res) => {
   try {
     const itemcode = req.params.itemcode;
