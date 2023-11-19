@@ -85,7 +85,7 @@ app.use('/hello', (req, res) => {
 })
 
 app.put('/edit/status/:id', cors(), async (req, res) => {
-  const {status, nama} = req.body;
+  const {nama, status} = req.body;
   const {id} = req.params;
   // const updateQuery = 'UPDATE test SET status = ?, nama = ? WHERE id = ?';
   // const updateParams = [{status, nama}, req.params.id];
@@ -110,8 +110,8 @@ app.put('/edit/status/:id', cors(), async (req, res) => {
       throw new Error('Invalid ID. Must be a valid integer.');
     }
 
-    const updateQuery = 'UPDATE test SET status = ?, nama = ? WHERE id = ?';
-    const updateParams = [status, nama, parsedId];
+    const updateQuery = 'UPDATE test SET nama = ?, status = ? WHERE id = ?';
+    const updateParams = [nama, status, parsedId];
 
     db.query(updateQuery, updateParams, (error, result) => {
       if (error) {

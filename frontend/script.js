@@ -105,15 +105,15 @@ function updateDataNama(){
         { nama: "Sopay", status: "1", id: "3" }
     ];
 
-    const promises = updateData.map(item => editData(item));
+    updateData.map(item => editData(item));
 
-    Promise.all(promises)
-        .then(responses => {
-            console.log("All requests completed successfully:", responses);
-        })
-        .catch(error => {
-            console.error("Error in one or more requests:", error);
-        });
+    // Promise.all(promises)
+    //     .then(responses => {
+    //         console.log("All requests completed successfully:", responses);
+    //     })
+    //     .catch(error => {
+    //         console.error("Error in one or more requests:", error);
+    //     });
     }
 
 function editData(item) {
@@ -124,8 +124,8 @@ function editData(item) {
         "Content-Type": "application/json"
     },
     body: JSON.stringify({
-        status: item.status,
         nama: item.nama,
+        status: item.status,
     })
     })
     .then(response => {
