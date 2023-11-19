@@ -95,3 +95,30 @@ function showBooks(m){
     </div>
     `;
 }
+
+const pshbtn = document.querySelector('#pushbutton');
+pshbtn.addEventListener('click', updateDataNama);
+function updateDataNama(){
+    const updateData = {
+        nama: "Nayir",
+        status: "1"
+    }
+
+    fetch("https://api.riyanarts.my.id/edit/status", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updateData)
+    })
+    .then(response => {
+        response.json();
+    })
+    .then(response => {
+        console.log("Success:", response);
+    })
+    .catch((error) => {
+        console.log("Error:", error.message);
+    })
+
+}

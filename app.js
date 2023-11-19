@@ -53,6 +53,20 @@ app.use('/hello', (req, res) => {
     res.json({ message: 'Hello World!' });
 })
 
+app.put('/edit/status', cors(), async (req, res) => {
+  const {updateDatas} = req.body;
+  const updateQuery = 'UPDATE biblio SET ? WHERE itemcode = ?';
+  db.query(updateQuery, updateDatas, (error, result) => {
+    if(error) {
+      console.log(error);
+      res.status(500).json({Error : "Internal Server Error"});
+    } else {
+      console.log("Data Successfully Up to date");
+      res.status(200).json({message : "Data Successfully Up to date"});
+    }
+  })
+})
+
 
 const port = 3000;
 app.listen(port, () => {
