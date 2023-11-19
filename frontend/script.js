@@ -37,7 +37,7 @@ function padWithZeros(input) {
     return input.replace(/\d+/, paddedNumericPart);
 }
 function getBook(itemcode){
-    return fetch(`https://project-laoet.vercel.app/check/${itemcode}`)
+    return fetch(`https://api.riyanarts.my.id/check/${itemcode}`)
     .then(response => {
         if(!response.ok){
             throw new Error(response.statusText);
@@ -68,11 +68,11 @@ function showBooks(m){
     <div class="col-md-4 my-3">
         <div class="card">
             <div class="card-body">
-              <h5 class="card-title">${m.title}</h5>
+              <h5 class="card-title">${m.judul}</h5>
               <h6 class="card-subtitle mb-2 text-body-secondary">
-              Penulis : ${m.author.replace(/[{}"]/g, '').split(',')}</h6>
+              Penulis : ${m.penulis.replace(/[{}"]/g, '').split(',')}</h6>
               <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary btn-modal" data-bs-toggle="modal" data-bs-target="#movieDetailModal" data-itemcode ="${m.itemcode}">Edit Data Biblio</a>
+              <a href="#" class="btn btn-primary btn-modal" data-bs-toggle="modal" data-bs-target="#movieDetailModal" data-itemcode ="${m.item_code}">Edit Data Biblio</a>
             </div>
           </div>
     </div>
