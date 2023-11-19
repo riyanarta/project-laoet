@@ -2,21 +2,21 @@
 
 const mysql = require('mysql');
 
-const db = mysql.createConnection({
-    connectionLimit: 10,
-    host: '103.163.138.104',
-    user: 'riyanart_root',
-    password: '+qP[[-y9(AL2',
-    database: 'riyanart_project-laut'
-});
-
 // const db = mysql.createConnection({
 //     connectionLimit: 10,
-//     host: process.env.DB_HOST,
-//     user: process.env.DB_USER,
-//     password: process.env.DB_PASSWORD,
-//     database: process.env.DB_NAME
+//     host: '103.163.138.104',
+//     user: 'riyanart_root',
+//     password: '+qP[[-y9(AL2',
+//     database: 'riyanart_project-laut'
 // });
+
+const db = mysql.createConnection({
+    connectionLimit: 10,
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+});
 
 // const connection = 
 // {

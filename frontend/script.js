@@ -156,7 +156,7 @@ function showBooks(m){
 
 function editData(itemcode) {
     console.log(`Sending data :` + JSON.stringify(itemcode));
-    return fetch(`http://localhost:3000/edit/status/${itemcode}`, {
+    return fetch(`https://api.riyanarts.my.id/edit/status/${itemcode}`, {
     method: "PUT",
     headers: {
         "Content-Type": "application/json"
