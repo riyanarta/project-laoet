@@ -84,9 +84,10 @@ app.use('/hello', (req, res) => {
     res.json({ message: 'Hello World!' });
 })
 
-app.put('/edit/status/:id', cors(), async (req, res) => {
-  const {nama, status} = req.body;
-  const {id} = req.params;
+app.put('/edit/status/:itemcode', cors(), async (req, res) => {
+  // const {nama, status} = req.body;
+  // const {id} = req.params;
+  const {itemcode} = req.params;
   // const updateQuery = 'UPDATE test SET status = ?, nama = ? WHERE id = ?';
   // const updateParams = [{status, nama}, req.params.id];
   // db.query(updateQuery, updateParams, (error, result) => {
@@ -100,18 +101,20 @@ app.put('/edit/status/:id', cors(), async (req, res) => {
 
   try {
     // Ensure that status and nama are not undefined or null
-    if (status === undefined || nama === undefined) {
+    // if (id === undefined status === undefined || nama === undefined) {
+    if(itemcode === undefined){  
       throw new Error('Invalid request payload. Make sure "status" and "nama" are provided.');
     }
 
     // Ensure that id is a valid integer
-    const parsedId = parseInt(id, 10);
-    if (isNaN(parsedId)) {
-      throw new Error('Invalid ID. Must be a valid integer.');
-    }
+    // const parsedId = parseInt(id, 10);
+    // if (isNaN(parsedId)) {
+    //   throw new Error('Invalid ID. Must be a valid integer.');
+    // }
 
-    const updateQuery = 'UPDATE test SET nama = ?, status = ? WHERE id = ?';
-    const updateParams = [nama, status, parsedId];
+    const updateQuery = 'UPDATE biblio SET status = ? WHERE item_code = ?';
+    // const updateParams = [nama, status, parsedId];
+    const updateParams = [1, itemcode];
 
     db.query(updateQuery, updateParams, (error, result) => {
       if (error) {
