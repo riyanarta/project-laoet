@@ -86,17 +86,48 @@ app.use('/hello', (req, res) => {
 
 app.put('/edit/status/:id', cors(), async (req, res) => {
   const {status, nama} = req.body;
-  const updateQuery = 'UPDATE test SET status = ?, nama = ? WHERE id = ?';
-  const updateParams = [{status, nama}, req.params.id];
-  db.query(updateQuery, updateParams, (error, result) => {
-    if(error) {
-      console.log(error);
-      res.status(500).json({Error : "Internal Server Error"});
-    } else {
-      console.log("Data Successfully Up to date");
-      res.json({message : "Data Successfully Up to date"});
+  const {id} = req.params;
+  // const updateQuery = 'UPDATE test SET status = ?, nama = ? WHERE id = ?';
+  // const updateParams = [{status, nama}, req.params.id];
+  // db.query(updateQuery, updateParams, (error, result) => {
+  //   if(error) {
+  //     console.log(error);
+  //     res.status(500).json({Error : "Internal Server Error"});
+  //   } else {
+  //     console.log("Data Successfully Up to date");
+  //     res.json({message : "Data Successfully Up to date"});
+  //   }
+
+  try {
+    // Ensure that status and nama are not undefined or null
+    if (status === undefined || nama === undefined) {
+      throw new Error('Invalid request payload. Make sure "status" and "nama" are provided.');
     }
-  })
+
+    // Ensure that id is a valid integer
+    const parsedId = parseInt(id, 10);
+    if (isNaN(parsedId)) {
+      throw new Error('Invalid ID. Must be a valid integer.');
+    }
+
+    const updateQuery = 'UPDATE test SET status = ?, nama = ? WHERE id = ?';
+    const updateParams = [status, nama, parsedId];
+
+    db.query(updateQuery, updateParams, (error, result) => {
+      if (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+      } else {
+        console.log("Data Successfully Up to date");
+        res.json({ message: "Data Successfully Up to date" });
+      }
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ error: err.message });
+  }
+
+  // })
 })
 
 
