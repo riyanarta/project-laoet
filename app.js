@@ -53,7 +53,7 @@ app.use('/hello', (req, res) => {
     res.json({ message: 'Hello World!' });
 })
 
-app.put('/edit/status', cors(), async (req, res) => {
+app.put('/edit/status', async (req, res) => {
   const {updateDatas} = req.body;
   const updateQuery = 'UPDATE biblio SET ? WHERE itemcode = ?';
   db.query(updateQuery, updateDatas, (error, result) => {
