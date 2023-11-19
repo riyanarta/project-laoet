@@ -53,10 +53,11 @@ app.use('/hello', (req, res) => {
     res.json({ message: 'Hello World!' });
 })
 
-app.put('/edit/status', async (req, res) => {
-  const {updateDatas} = req.body;
-  const updateQuery = 'UPDATE biblio SET ? WHERE itemcode = ?';
-  db.query(updateQuery, updateDatas, (error, result) => {
+app.put('/edit/status/:item_code', async (req, res) => {
+  const {status} = req.body;
+  const updateQuery = 'UPDATE biblio SET ? WHERE item_code = ?';
+  const updateParams = [{status}, req.params.item_code]
+  db.query(updateQuery, updateParams, (error, result) => {
     if(error) {
       console.log(error);
       res.status(500).json({Error : "Internal Server Error"});
