@@ -28,13 +28,13 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+//   res.setHeader('Access-Control-Allow-Credentials', true);
+//   next();
+// });
 
 app.get('/check/:itemcode', async (req, res) => {
   try {
@@ -87,7 +87,7 @@ app.use('/hello', (req, res) => {
 app.put('/edit/status/:id', cors(), async (req, res) => {
   const {status, nama} = req.body.item;
   const updateQuery = 'UPDATE test SET status = ?, nama = ? WHERE id = ?';
-  const updateParams = [status, nama, req.params.id];
+  const updateParams = [{status, nama}, req.params.id];
   db.query(updateQuery, updateParams, (error, result) => {
     if(error) {
       console.log(error);
