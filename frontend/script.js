@@ -99,29 +99,26 @@ function showBooks(m){
 const pshbtn = document.querySelector('#pushbutton');
 pshbtn.addEventListener('click', updateDataNama);
 function updateDataNama(){
-    const updateData = [{
-        nama: "Nayir",
-        status: "0",
-        id: "1"
-    },
-    {
-        nama: "Noy",
-        status: "1",
-        id: "2"
-    },
-    {
-        nama: "Sopay",
-        status: "1",
-        id: "3"
-    }]
+    const updateData = [
+        { nama: "Nayir", status: "0", id: "1" },
+        { nama: "Noy", status: "1", id: "2" },
+        { nama: "Sopay", status: "1", id: "3" }
+    ];
 
-    updateData.forEach(item => {
-        editData(item);
-    });
+    const promises = updateData.map(item => editData(item));
+
+    Promise.all(promises)
+        .then(responses => {
+            console.log("All requests completed successfully:", responses);
+        })
+        .catch(error => {
+            console.error("Error in one or more requests:", error);
+        });
 
 }
 
 function editData(item){
+    console.log(`Sending data :` + JSON.stringify(item));
     return fetch(`https://api.riyanarts.my.id/edit/status/${item.id}`, {
     method: "PUT",
     headers: {
@@ -140,7 +137,7 @@ function editData(item){
         console.log("Success:", response);
     })
     .catch((error) => {
-        console.log("Error:", error.message);
+        console.log("Error:", error);
     });
 
 

@@ -3,21 +3,30 @@ const cors = require('cors');
 const app = express();
 const db = require('./services/db');
 
-const allowedOrigins = ['http://localhost', 'http://127.0.0.1:5500', 'http://riyanarta.000webhostapp.com', 'https://project-laut.vercel.app'];
+// const allowedOrigins = ['http://localhost', 'http://127.0.0.1:5500', 'http://riyanarta.000webhostapp.com', 'https://project-laut.vercel.app'];
 
-const corsOptions = {
-  origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin) || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  optionsSuccessStatus: 200,
-};
+// const corsOptions = {
+//   origin: (origin, callback) => {
+//     if (allowedOrigins.includes(origin) || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   },
+//   optionsSuccessStatus: 200,
+// };
 
 app.use(express.json());
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+});
+
 app.get('/check/:itemcode', async (req, res) => {
   try {
     const itemcode = req.params.itemcode;
@@ -68,7 +77,7 @@ app.use('/hello', (req, res) => {
 
 app.put('/edit/status/:id', cors() , async (req, res) => {
   const {status, nama} = req.body.item;
-  const updateQuery = 'UPDATE test SET ?,?,? WHERE id = ?';
+  const updateQuery = 'UPDATE test SET status = ?, nama = ? WHERE id = ?';
   const updateParams = [{status, nama}, req.params.id];
   db.query(updateQuery, updateParams, (error, result) => {
     if(error) {
