@@ -69,7 +69,7 @@ app.use('/hello', (req, res) => {
 app.put('/edit/status/', cors() , async (req, res) => {
   const {status, nama, id} = req.body;
   const updateQuery = 'UPDATE test SET ? WHERE id = ?';
-  const updateParams = [{status, nama, id}, req.body.id];
+  const updateParams = [{status, nama, id}, id];
   db.query(updateQuery, updateParams, (error, result) => {
     if(error) {
       console.log(error);
