@@ -66,7 +66,7 @@ app.use('/hello', (req, res) => {
     res.json({ message: 'Hello World!' });
 })
 
-app.put('/edit/status/:item_code', async (req, res) => {
+app.put('/edit/status/:item_code', cors() , async (req, res) => {
   const {status} = req.body;
   const updateQuery = 'UPDATE biblio SET ? WHERE item_code = ?';
   const updateParams = [{status}, req.params.item_code]
