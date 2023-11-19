@@ -16,8 +16,8 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 
-app.use(express.json());
 app.use(cors(corsOptions));
+app.use(express.json());
 
 // app.use((req, res, next) => {
 //   res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500');
@@ -75,7 +75,7 @@ app.use('/hello', (req, res) => {
     res.json({ message: 'Hello World!' });
 })
 
-app.put('/edit/status/:id', cors() , async (req, res) => {
+app.put('/edit/status/:id', async (req, res) => {
   const {status, nama} = req.body.item;
   const updateQuery = 'UPDATE test SET status = ?, nama = ? WHERE id = ?';
   const updateParams = [{status, nama}, req.params.id];
