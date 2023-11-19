@@ -1,30 +1,30 @@
 const express = require('express');
-// const cors = require('cors');
-const {createProxyMiddleware} = require('http-proxy-middleware');
+const cors = require('cors');
+// const {createProxyMiddleware} = require('http-proxy-middleware');
 const app = express();
 const db = require('./services/db');
 
-// const allowedOrigins = ['http://localhost', 'http://127.0.0.1:5500', 'http://riyanarta.000webhostapp.com', 'https://project-laut.vercel.app'];
+const allowedOrigins = ['http://localhost', 'http://127.0.0.1:5500', 'http://riyanarta.000webhostapp.com', 'https://project-laut.vercel.app'];
 
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     if (allowedOrigins.includes(origin) || !origin) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error('Not allowed by CORS'));
-//     }
-//   },
-//   optionsSuccessStatus: 200,
-// };
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  optionsSuccessStatus: 200,
+};
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
-const apiProxy = createProxyMiddleware('/api', {
-  target: 'https://api.riyanarts.my.id',
-  changeOrigin: true,
-});
+// const apiProxy = createProxyMiddleware('/api', {
+//   target: 'https://api.riyanarts.my.id',
+//   changeOrigin: true,
+// });
 
-app.use('/api', apiProxy);
+// app.use('/api', apiProxy);
 
 app.use(express.json());
 
@@ -80,11 +80,11 @@ app.put('/edit/:itemcode', cors(), async (req, res) => {
   }
 })
 
-app.use('/api/hello', (req, res) => {
+app.use('/hello', (req, res) => {
     res.json({ message: 'Hello World!' });
 })
 
-app.put('/api/edit/status/:id', cors(), async (req, res) => {
+app.put('/edit/status/:id', cors(), async (req, res) => {
   const {status, nama} = req.body.item;
   const updateQuery = 'UPDATE test SET status = ?, nama = ? WHERE id = ?';
   const updateParams = [{status, nama}, req.params.id];

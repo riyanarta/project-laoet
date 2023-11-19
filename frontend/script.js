@@ -115,11 +115,8 @@ function updateDataNama(){
             console.error("Error in one or more requests:", error);
         });
 
-}
-
-function editData(item){
     console.log(`Sending data :` + JSON.stringify(item));
-    return fetch(`https://api.riyanarts.my.id/api/edit/status/${item.id}`, {
+    fetch(`https://api.riyanarts.my.id/api/edit/status/${item.id}`, {
     method: "PUT",
     headers: {
         "Content-Type": "application/json"
