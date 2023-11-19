@@ -105,20 +105,26 @@ function updateDataNama(){
     }
 
     fetch("https://api.riyanarts.my.id/edit/status/1", {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(updateData)
-    })
+    method: "PUT",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(updateData)
+})
     .then(response => {
-        response.json();
+        console.log("Raw Response:", response);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
     })
     .then(response => {
         console.log("Success:", response);
     })
     .catch((error) => {
         console.log("Error:", error.message);
-    })
+    });
+
 
 }
+
