@@ -66,10 +66,10 @@ app.use('/hello', (req, res) => {
     res.json({ message: 'Hello World!' });
 })
 
-app.put('/edit/status/:id', cors() , async (req, res) => {
-  const {status, nama} = req.body;
+app.put('/edit/status/', cors() , async (req, res) => {
+  const {status, nama, id} = req.body;
   const updateQuery = 'UPDATE test SET ? WHERE id = ?';
-  const updateParams = [{status, nama}, req.params.id]
+  const updateParams = [{status, nama, id}, req.body.id];
   db.query(updateQuery, updateParams, (error, result) => {
     if(error) {
       console.log(error);

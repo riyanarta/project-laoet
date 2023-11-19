@@ -99,24 +99,42 @@ function showBooks(m){
 const pshbtn = document.querySelector('#pushbutton');
 pshbtn.addEventListener('click', updateDataNama);
 function updateDataNama(){
-    const updateData = {
+    const updateData = [{
         nama: "Nayir",
-        status: "1"
-    }
+        status: "0",
+        id: "1"
+    },
+    {
+        nama: "Noy",
+        status: "1",
+        id: "2"
+    },
+    {
+        nama: "Sopay",
+        status: "1",
+        id: "3"
+    }]
 
-    fetch("https://api.riyanarts.my.id/edit/status/1", {
+    updateData.forEach(item => {
+        editData(item);
+    });
+
+}
+
+function editData(item){
+    return fetch("https://api.riyanarts.my.id/edit/status", {
     method: "PUT",
     headers: {
         "Content-Type": "application/json"
     },
-    body: JSON.stringify(updateData)
-})
+    body: JSON.stringify(item)
+    })
     .then(response => {
         console.log("Raw Response:", response);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        return response.json();
+        response.json();
     })
     .then(response => {
         console.log("Success:", response);
