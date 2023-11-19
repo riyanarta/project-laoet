@@ -1,0 +1,24 @@
+test table th{
+    font-size: 10px;
+}
+
+/* canvas.drawing, canvas.drawingBuffer {
+    position: relative;
+} */
+
+canvas.drawingBuffer {
+    position: relative;
+    margin-left: -310px;
+}
+
+/* #scanner-container {
+    &::ng-deep video {
+        width: 100%;
+    }
+     ::ng-deep canvas {
+        position: absolute;
+        z-index: 1000;
+        right: 0;
+        width: 100%;
+    }
+} */
