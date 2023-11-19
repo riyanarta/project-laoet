@@ -114,7 +114,9 @@ function updateDataNama(){
         .catch(error => {
             console.error("Error in one or more requests:", error);
         });
+    }
 
+function editData(item) {
     console.log(`Sending data :` + JSON.stringify(item));
     fetch(`https://api.riyanarts.my.id/api/edit/status/${item.id}`, {
     method: "PUT",
