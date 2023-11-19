@@ -100,10 +100,11 @@ const pshbtn = document.querySelector('#pushbutton');
 pshbtn.addEventListener('click', updateDataNama);
 function updateDataNama(){
     const updateData = {
+        nama: "Nayir",
         status: "1"
     }
 
-    fetch("https://api.riyanarts.my.id/edit/status/p000860", {
+    fetch("https://api.riyanarts.my.id/edit/status/1", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"

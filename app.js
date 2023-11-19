@@ -66,17 +66,17 @@ app.use('/hello', (req, res) => {
     res.json({ message: 'Hello World!' });
 })
 
-app.put('/edit/status/:item_code', cors() , async (req, res) => {
-  const {status} = req.body;
-  const updateQuery = 'UPDATE biblio SET ? WHERE item_code = ?';
-  const updateParams = [{status}, req.params.item_code]
+app.put('/edit/status/:id', cors() , async (req, res) => {
+  const {status, nama} = req.body;
+  const updateQuery = 'UPDATE test SET ? WHERE id = ?';
+  const updateParams = [{status, nama}, req.params.id]
   db.query(updateQuery, updateParams, (error, result) => {
     if(error) {
       console.log(error);
       res.status(500).json({Error : "Internal Server Error"});
     } else {
       console.log("Data Successfully Up to date");
-      res.status(200).json({message : "Data Successfully Up to date"});
+      res.json({message : "Data Successfully Up to date"});
     }
   })
 })
