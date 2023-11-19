@@ -119,7 +119,7 @@ function updateDataNama(){
 
 function editData(item){
     console.log(`Sending data :` + JSON.stringify(item));
-    fetch(`https://api.riyanarts.my.id/edit/status/${item.id}`, {
+    return fetch(`https://api.riyanarts.my.id/edit/status/${item.id}`, {
     method: "PUT",
     headers: {
         "Content-Type": "application/json"
