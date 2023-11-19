@@ -134,7 +134,7 @@ function editData(item){
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        response.json();
+        return response.json();
     })
     .then(response => {
         console.log("Success:", response);
