@@ -16,3 +16,8 @@ h5.card-title{
     transition: opacity 0.5s ease-in-out;
 }
 
+.navbar-nav {
+    margin-left: auto;
+    /* margin-right: 50px; */
+}
+

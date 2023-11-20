@@ -3,38 +3,46 @@ const loadingSpinner = document.querySelector('#loadingSearch')
 const content = document.querySelector('#content');
 
 let inputVal = '';
-inputKeyword.addEventListener('keydown', function(e){
-    if(e.key === 'Delete'){
-        e.preventDefault();
-        inputKeyword.value = inputKeyword.value.slice(0, -7)
-        
-    }
-});
-inputKeyword.addEventListener('keyup', async function(e) {
-    if(e.keyCode === 13){
-        try{
-            loadingSpinner.classList.remove('d-none');
-            const inputVal = padWithZeros(inputKeyword.value, 7);
-            const books = await getBook(inputVal.toUpperCase());
-            updateUI(books);
-            loadingSpinner.classList.add('d-none');
-        }catch(err){
-            alert(err);
+
+document.addEventListener('click', async function(e) {
+    if(e.target.className === 'btn btn-primary btn-modal'){
+        const item_code = e.target.dataset.itemcode;
+        const response = await editData(item_code);
+        if(response){
+            alert('Update Status : '+ item_code);
+            inputKeyword.value = '';
+            content.innerHTML = '';
+            inputKeyword.focus();
         }
-
-        // setTimeout(() => {
-        //     inputKeyword.value = '';
-        //     setTimeout(() => {
-        //         content.innerHTML = '';
-        //     }, 5000);
-        // },5000);
     }
-    
-    
-});
+})
 
-
-
+document.addEventListener('DOMContentLoaded', () => {
+    // if(e.target.className === inputKeyword){
+        if(inputKeyword){
+            inputKeyword.addEventListener('keydown', function(e){
+                if(e.key === 'Delete'){
+                    e.preventDefault();
+                    inputKeyword.value = inputKeyword.value.slice(0, -7)
+                    
+                }
+            });
+            inputKeyword.addEventListener('keyup', async function(e) {
+                if(e.keyCode === 13){
+                    try{
+                        loadingSpinner.classList.remove('d-none');
+                        const inputVal = padWithZeros(inputKeyword.value, 7);
+                        const books = await getBook(inputVal.toUpperCase());
+                        updateUI(books);
+                        loadingSpinner.classList.add('d-none');
+                    }catch(err){
+                        alert(err);
+                    }
+                }
+            });
+        }
+    // }
+})
 
 const btnCancel = document.querySelector('#btnCancel');
 document.addEventListener('click', (e) => {
@@ -101,7 +109,7 @@ function showBooks(m){
                         <li class="list-group-item">Item Code : ${m.item_code}</li>
                         <li class="list-group-item">Call Number : ${m.call_number}</li>
                         <li class="list-group-item">Harga : ${m.harga}</li>
-                        <li class="list-group-item">
+                        <li class="list-group-item ${m.status === "0" ? 'text-danger' : 'text-success'}">
                         Status : ${m.status === "0" ? 'Belum Stock Opname' : 'Sudah Stock Opname' }</li>
                     </ul>
                 </div>
@@ -122,6 +130,7 @@ function showBooks(m){
 
 // const pshbtn = document.querySelector('#pushbutton');
 // pshbtn.addEventListener('click', updateDataNama);
+
 
     document.addEventListener('click', async function(e) {
         if(e.target.className === 'btn btn-primary btn-modal'){
@@ -179,5 +188,25 @@ function editData(itemcode) {
     .catch((error) => {
         console.log("Error:", error);
     });
+}
+
+const contentUpdate = document.querySelector('#content-update');
+const btnInputDataUpdate = document.querySelector('.input-to-database');
+const dataItemCode = document.querySelector('[name="item-code"]');
+const dataTahunInventaris = document.querySelector('[name="tahun-inventaris"]');
+
+document.addEventListener("DOMContentLoaded", function(){
+    if(contentUpdate) {
+        btnInputDataUpdate.addEventListener('click', ()=>{
+            console.log(`${dataItemCode.value}`);
+            console.log(`${dataTahunInventaris.value}`);
+        })
+    }
+})
+
+function getDataForm(){
+    
+
+    console.log(`${dataItemCode} ${dataTahunInventaris}`);
 }
 
